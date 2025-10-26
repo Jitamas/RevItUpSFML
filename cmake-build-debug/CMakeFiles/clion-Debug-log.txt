@@ -1,5 +1,5 @@
 C:\Users\steph\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=C:/Users/steph/AppData/Local/Programs/CLion/bin/ninja/win/x64/ninja.exe -G Ninja -S C:\Users\steph\RevItUpSFML -B C:\Users\steph\RevItUpSFML\cmake-build-debug
--- Could NOT find PkgConfig (missing: PKG_CONFIG_EXECUTABLE) 
+-- Could NOT find PkgConfig (missing: PKG_CONFIG_EXECUTABLE)
 -- Configuring libogg 1.3.5
 -- Configuring vorbis 1.3.7
 -- Configuring done (3.1s)
