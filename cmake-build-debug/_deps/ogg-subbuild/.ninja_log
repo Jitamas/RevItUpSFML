@@ -1,0 +1,21 @@
+# ninja log v6
+3	96	7833243423832252	ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-mkdir	91d090a9d9917a03
+3	96	7833243423832252	C:/RevItUpSFML/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-mkdir	91d090a9d9917a03
+97	2586	7833243448740331	ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-download	4c2e60281d6e2b6e
+97	2586	7833243448740331	C:/RevItUpSFML/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-download	4c2e60281d6e2b6e
+2587	2814	7833243448817859	ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-update	3b30d3b7105b8fb2
+2587	2814	7833243448817859	C:/RevItUpSFML/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-update	3b30d3b7105b8fb2
+2844	2938	7833243452250837	ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-patch	b24a356105998843
+2844	2938	7833243452250837	C:/RevItUpSFML/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-patch	b24a356105998843
+2939	3028	7833243453140800	ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-configure	8e97acf1d6e51a56
+2939	3028	7833243453140800	C:/RevItUpSFML/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-configure	8e97acf1d6e51a56
+3028	3122	7833243454089137	ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-build	d01f99ee5a5c985a
+3028	3122	7833243454089137	C:/RevItUpSFML/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-build	d01f99ee5a5c985a
+3123	3214	7833243455001207	ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-install	d15574ece596c9db
+3123	3214	7833243455001207	C:/RevItUpSFML/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-install	d15574ece596c9db
+3214	3307	7833243455930109	ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-test	c6fb4bac5650d690
+3214	3307	7833243455930109	C:/RevItUpSFML/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-test	c6fb4bac5650d690
+3307	3437	7833243457235681	CMakeFiles/ogg-populate-complete	5975aa624efc48ec
+3307	3437	7833243457235681	ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-done	5975aa624efc48ec
+3307	3437	7833243457235681	C:/RevItUpSFML/cmake-build-debug/_deps/ogg-subbuild/CMakeFiles/ogg-populate-complete	5975aa624efc48ec
+3307	3437	7833243457235681	C:/RevItUpSFML/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-done	5975aa624efc48ec

@@ -1,0 +1,21 @@
+# ninja log v6
+3	100	7833243784199052	vorbis-populate-prefix/src/vorbis-populate-stamp/vorbis-populate-mkdir	933efbfb73fafd0d
+3	100	7833243784199052	C:/RevItUpSFML/cmake-build-debug/_deps/vorbis-subbuild/vorbis-populate-prefix/src/vorbis-populate-stamp/vorbis-populate-mkdir	933efbfb73fafd0d
+100	4712	7833243830323036	vorbis-populate-prefix/src/vorbis-populate-stamp/vorbis-populate-download	23498401ef06ed86
+100	4712	7833243830323036	C:/RevItUpSFML/cmake-build-debug/_deps/vorbis-subbuild/vorbis-populate-prefix/src/vorbis-populate-stamp/vorbis-populate-download	23498401ef06ed86
+4712	4933	7833243830407035	vorbis-populate-prefix/src/vorbis-populate-stamp/vorbis-populate-update	e9dfb0e7b8103c1
+4712	4933	7833243830407035	C:/RevItUpSFML/cmake-build-debug/_deps/vorbis-subbuild/vorbis-populate-prefix/src/vorbis-populate-stamp/vorbis-populate-update	e9dfb0e7b8103c1
+4963	5057	7833243833776135	vorbis-populate-prefix/src/vorbis-populate-stamp/vorbis-populate-patch	4863cda30f49f741
+4963	5057	7833243833776135	C:/RevItUpSFML/cmake-build-debug/_deps/vorbis-subbuild/vorbis-populate-prefix/src/vorbis-populate-stamp/vorbis-populate-patch	4863cda30f49f741
+5057	5146	7833243834672649	vorbis-populate-prefix/src/vorbis-populate-stamp/vorbis-populate-configure	e46339343f3eed02
+5057	5146	7833243834672649	C:/RevItUpSFML/cmake-build-debug/_deps/vorbis-subbuild/vorbis-populate-prefix/src/vorbis-populate-stamp/vorbis-populate-configure	e46339343f3eed02
+5147	5237	7833243835581736	vorbis-populate-prefix/src/vorbis-populate-stamp/vorbis-populate-build	ade4eca6973b7720
+5147	5237	7833243835581736	C:/RevItUpSFML/cmake-build-debug/_deps/vorbis-subbuild/vorbis-populate-prefix/src/vorbis-populate-stamp/vorbis-populate-build	ade4eca6973b7720
+5237	5334	7833243836553481	vorbis-populate-prefix/src/vorbis-populate-stamp/vorbis-populate-install	f50cb8dd8aa045ca
+5237	5334	7833243836553481	C:/RevItUpSFML/cmake-build-debug/_deps/vorbis-subbuild/vorbis-populate-prefix/src/vorbis-populate-stamp/vorbis-populate-install	f50cb8dd8aa045ca
+5335	5432	7833243837530415	vorbis-populate-prefix/src/vorbis-populate-stamp/vorbis-populate-test	680560e33c142f89
+5335	5432	7833243837530415	C:/RevItUpSFML/cmake-build-debug/_deps/vorbis-subbuild/vorbis-populate-prefix/src/vorbis-populate-stamp/vorbis-populate-test	680560e33c142f89
+5433	5555	7833243838754893	CMakeFiles/vorbis-populate-complete	296e15556ce903fb
+5433	5555	7833243838754893	vorbis-populate-prefix/src/vorbis-populate-stamp/vorbis-populate-done	296e15556ce903fb
+5433	5555	7833243838754893	C:/RevItUpSFML/cmake-build-debug/_deps/vorbis-subbuild/CMakeFiles/vorbis-populate-complete	296e15556ce903fb
+5433	5555	7833243838754893	C:/RevItUpSFML/cmake-build-debug/_deps/vorbis-subbuild/vorbis-populate-prefix/src/vorbis-populate-stamp/vorbis-populate-done	296e15556ce903fb

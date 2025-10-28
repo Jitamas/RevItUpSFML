@@ -1,0 +1,21 @@
+# ninja log v6
+3	84	7833243298960083	freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-mkdir	4a1fe7131d7690f0
+3	84	7833243298960083	C:/RevItUpSFML/cmake-build-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-mkdir	4a1fe7131d7690f0
+84	11076	7833243408862750	freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-download	659997dd368baa82
+84	11076	7833243408862750	C:/RevItUpSFML/cmake-build-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-download	659997dd368baa82
+11076	11296	7833243408941533	freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-update	e2995ce3b107d35f
+11076	11296	7833243408941533	C:/RevItUpSFML/cmake-build-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-update	e2995ce3b107d35f
+11327	11455	7833243412648724	freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-patch	8824e2f65f59122c
+11327	11455	7833243412648724	C:/RevItUpSFML/cmake-build-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-patch	8824e2f65f59122c
+11456	11544	7833243413549202	freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-configure	bfc4d8713c37ec10
+11456	11544	7833243413549202	C:/RevItUpSFML/cmake-build-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-configure	bfc4d8713c37ec10
+11545	11635	7833243414455841	freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-build	67ad7cfcdda33a74
+11545	11635	7833243414455841	C:/RevItUpSFML/cmake-build-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-build	67ad7cfcdda33a74
+11636	11728	7833243415381639	freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-install	330959acc580f104
+11636	11728	7833243415381639	C:/RevItUpSFML/cmake-build-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-install	330959acc580f104
+11729	11823	7833243416323209	freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-test	db66eef39725136b
+11729	11823	7833243416323209	C:/RevItUpSFML/cmake-build-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-test	db66eef39725136b
+11823	11945	7833243417547048	CMakeFiles/freetype-populate-complete	7873742fbe7cbd03
+11823	11945	7833243417547048	freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-done	7873742fbe7cbd03
+11823	11945	7833243417547048	C:/RevItUpSFML/cmake-build-debug/_deps/freetype-subbuild/CMakeFiles/freetype-populate-complete	7873742fbe7cbd03
+11823	11945	7833243417547048	C:/RevItUpSFML/cmake-build-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-done	7873742fbe7cbd03
