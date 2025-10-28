@@ -1,11 +1,10 @@
-// Developers: Simon and Simon
-// Record: 10/26/25 2:50 am - Failing to load font
+// Developers: Simon Mekhail,
+// Record: 10/26 7:44PM - Need to add mouse hover color
 
 
 
 
 #include <SFML/Window.hpp>
-#include <iostream>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <optional>
@@ -15,10 +14,11 @@ using namespace sf;
 enum class programState
 {
     MainMenu,
-    Settings,
     Inventory,
     Scheduling,
+    AI_Assistant,
     Parts,
+    Settings,
 };
 
 
@@ -45,19 +45,29 @@ Texture mainMenuBackground(std::filesystem::path("../../assets/RIUtestpic1.jpg")
 //  (Sprite) Creates a drawable object that references the texture
 Sprite mainMenuBackgroundSprite(mainMenuBackground);
 
-Texture settingsbackground(std::filesystem::path("../../assets/settingsbackground.jpg"),true);
-Sprite settingsbackgroundSprite(settingsbackground);
+// For Inventory Background Image
+Texture inventorybackground(std::filesystem::path("../../assets/inventorybackground.png"),true);
+Sprite inventorybackgroundSprite(inventorybackground);
 
+// For Scheduling Background Image
 Texture schedulingbackground(std::filesystem::path("../../assets/schedulingbackground.jpg"),true);
 Sprite schedulingbackgroundSprite(schedulingbackground);
 
+// For Parts Background Image
+Texture partsbackground(std::filesystem::path("../../assets/partsbackground.jpg"),true);
+Sprite partsbackgroundSprite(partsbackground);
+
+// For AI Background Image
+Texture aibackground(std::filesystem::path("../../assets/aibackground.jpg"),true);
+Sprite aibackgroundSprite(aibackground);
+
+// For Settings Background Image
+Texture settingsbackground(std::filesystem::path("../../assets/settingsbackground.jpg"),true);
+Sprite settingsbackgroundSprite(settingsbackground);
 
 
-
-// Font test
+// Font
 Font font(std::filesystem::path("../../assets/AppleGaramond.ttf"));
-
-
 
 
 //Function to CHECK if mouse is over buttons
@@ -82,11 +92,6 @@ void mouseHoverColor(RectangleShape& button, RenderWindow& window)
 
 
 
-
-
-
-
-
 int main()
 {
     RenderWindow window(VideoMode({1920, 1080}), "My window");
@@ -106,129 +111,199 @@ int main()
         }
 
 
-        //  Button 1
-        RectangleShape button1(Vector2f(200,50));
-        button1.setPosition(Vector2f(250.f,362.f));
-        button1.setFillColor(Color::White);
-        button1.setOutlineColor(Color::Black);
-        button1.setOutlineThickness(2);
-        //Creating Text for Button 1
-        Text button1Text(font, "Inventory",30);
-        button1Text.setFillColor(Color::Black);
-        button1Text.setPosition({272.f, 362.f });
+        // Inventory Button (Main Menu)
+        RectangleShape inventoryButton(Vector2f(200,50));
+        inventoryButton.setPosition(Vector2f(250.f,362.f));
+        inventoryButton.setFillColor(Color::White);
+        inventoryButton.setOutlineColor(Color::Black);
+        inventoryButton.setOutlineThickness(2);
+        //Creating Text for Inventory Button
+        Text inventoryButtonText(font, "Inventory",30);
+        inventoryButtonText.setFillColor(Color::Black);
+        inventoryButtonText.setPosition({272.f, 362.f });
 
-        // Button 2
-        RectangleShape button2(Vector2f(200,50));
-        button2.setPosition(Vector2f(250.f,430.f));
-        button2.setFillColor(Color::White);
-        button2.setOutlineColor(Color::Black);
-        button2.setOutlineThickness(2);
-        //Creating Text for Button 2
-        Text button2Text(font, "Scheduling",30);
-        button2Text.setFillColor(Color::Black);
-        button2Text.setPosition({272.f, 430.f });
+        // Inventory BACK Button (Inventory Menu)
+        RectangleShape inventoryBack(Vector2f(100,50));
+        inventoryBack.setPosition(Vector2f(150.f,900.f));
+        inventoryBack.setFillColor(Color::White);
+        inventoryBack.setOutlineColor(Color::Black);
+        inventoryBack.setOutlineThickness(2);
+        //Creating Text for Inventory BACK Button (Inventory Menu)
+        Text inventoryBackText(font, "Back",30);
+        inventoryBackText.setFillColor(Color::Black);
+        inventoryBackText.setPosition({172.f, 900.f });
 
-        // Button 3
-        RectangleShape button3(Vector2f(200,50));
-        button3.setPosition(Vector2f(250.f,500.f));
-        button3.setFillColor(Color::White);
-        button3.setOutlineColor(Color::Black);
-        button3.setOutlineThickness(2);
-        //Creating Text for Button 3
-        Text button3Text(font, "Parts",30);
-        button3Text.setFillColor(Color::Black);
-        button3Text.setPosition({272.f, 500.f });
+        // Scheduling Button (Main Menu)
+        RectangleShape schedulingButton(Vector2f(200,50));
+        schedulingButton.setPosition(Vector2f(250.f,430.f));
+        schedulingButton.setFillColor(Color::White);
+        schedulingButton.setOutlineColor(Color::Black);
+        schedulingButton.setOutlineThickness(2);
+        //Creating Text for Scheduling Button
+        Text schedulingButtonText(font, "Scheduling",30);
+        schedulingButtonText.setFillColor(Color::Black);
+        schedulingButtonText.setPosition({272.f, 430.f });
 
-        // Button 4
-        RectangleShape button4(Vector2f(200,50));
-        button4.setPosition(Vector2f(250.f,570.f));
-        button4.setFillColor(Color::White);
-        button4.setOutlineColor(Color::Black);
-        button4.setOutlineThickness(2);
-        //Creating Text for Button 4
-        Text button4Text(font, "Settings",30);
-        button4Text.setFillColor(Color::Black);
-        button4Text.setPosition({272.f, 570.f });
+        // Scheduling BACK Button (Scheduling Menu)
+        RectangleShape schedulingBack(Vector2f(100,50));
+        schedulingBack.setPosition(Vector2f(150.f,900.f));
+        schedulingBack.setFillColor(Color::White);
+        schedulingBack.setOutlineColor(Color::Black);
+        schedulingBack.setOutlineThickness(2);
+        //Creating Text for Scheduling Button
+        Text schedulingBackText(font, "Back",30);
+        schedulingBackText.setFillColor(Color::Black);
+        schedulingBackText.setPosition({172.f, 900.f });
 
-        // Button 5
-        RectangleShape button5(Vector2f(200,50));
-        button5.setPosition(Vector2f(250.f,570.f));
-        button5.setFillColor(Color::White);
-        button5.setOutlineColor(Color::Black);
-        button5.setOutlineThickness(2);
-        //Creating Text for Button 5
-        Text button5Text(font, "Exit",30);
-        button5Text.setFillColor(Color::Black);
-        button5Text.setPosition({272.f, 570.f });
+        // Parts Button (Main Menu)
+        RectangleShape partsButton(Vector2f(200,50));
+        partsButton.setPosition(Vector2f(250.f,500.f));
+        partsButton.setFillColor(Color::White);
+        partsButton.setOutlineColor(Color::Black);
+        partsButton.setOutlineThickness(2);
+        //Creating Text for Parts Button
+        Text partsButtonText(font, "Parts",30);
+        partsButtonText.setFillColor(Color::Black);
+        partsButtonText.setPosition({272.f, 500.f });
+
+        // Parts BACK Button (Parts Menu)
+        RectangleShape partsBack(Vector2f(100,50));
+        partsBack.setPosition(Vector2f(150.f,900.f));
+        partsBack.setFillColor(Color::White);
+        partsBack.setOutlineColor(Color::Black);
+        partsBack.setOutlineThickness(2);
+        //Creating Text for Parts Button (parts menu)
+        Text partsBackText(font, "Back",30);
+        partsBackText.setFillColor(Color::Black);
+        partsBackText.setPosition({172.f, 900.f });
+
+        // AI Assistant Button
+        RectangleShape aiButton(Vector2f(200,50));
+        aiButton.setPosition(Vector2f(250.f,570.f));
+        aiButton.setFillColor(Color::White);
+        aiButton.setOutlineColor(Color::Black);
+        aiButton.setOutlineThickness(2);
+        // Creating Text for AI Assistant Button
+        Text aiButtonText(font, "AI Assistant",30);
+        aiButtonText.setFillColor(Color::Black);
+        aiButtonText.setPosition({272.f, 570.f });
+
+        // AI BACK Button
+        RectangleShape aiBack(Vector2f(100,50));
+        aiBack.setPosition(Vector2f(150.f,900.f));
+        aiBack.setFillColor(Color::White);
+        aiBack.setOutlineColor(Color::Black);
+        aiBack.setOutlineThickness(2);
+        //Creating Text for AI BACK Button (AI Menu)
+        Text aiBackText(font, "Back",30);
+        aiBackText.setFillColor(Color::Black);
+        aiBackText.setPosition({172.f, 900.f });
+
+        // Settings Button
+        RectangleShape settingsButton(Vector2f(200,50));
+        settingsButton.setPosition(Vector2f(250.f,640.f));
+        settingsButton.setFillColor(Color::White);
+        settingsButton.setOutlineColor(Color::Black);
+        settingsButton.setOutlineThickness(2);
+        //Creating Text for Settings Button
+        Text settingsButtonText(font, "Settings",30);
+        settingsButtonText.setFillColor(Color::Black);
+        settingsButtonText.setPosition({272.f, 640.f });
+
+        // Settings BACK Button (Settings Menu)
+        RectangleShape settingsBack(Vector2f(100,50));
+        settingsBack.setPosition(Vector2f(150.f,900.f));
+        settingsBack.setFillColor(Color::White);
+        settingsBack.setOutlineColor(Color::Black);
+        settingsBack.setOutlineThickness(2);
+        //Creating Text for Settings BACK Button (Settings Menu)
+        Text settingsBackText(font, "Back",30);
+        settingsBackText.setFillColor(Color::Black);
+        settingsBackText.setPosition({172.f, 900.f });
+
+        // Exit Button
+        RectangleShape exitButton(Vector2f(200,50));
+        exitButton.setPosition(Vector2f(250.f,710.f));
+        exitButton.setFillColor(Color::White);
+        exitButton.setOutlineColor(Color::Black);
+        exitButton.setOutlineThickness(2);
+        //Creating Text for Exit Button
+        Text exitButtonText(font, "Exit",30);
+        exitButtonText.setFillColor(Color::Black);
+        exitButtonText.setPosition({272.f, 710.f });
 
 
         //If the left mouse button is pressed
         if (isButtonPressed(Mouse::Button::Left))
         {
-            if (isMouseOver(button1, window))
-            {
+            if (isMouseOver(inventoryButton, window))
                 state = programState::Inventory;
-            }
-        }
-        if (isButtonPressed(Mouse::Button::Left))
-        {
-            if (isMouseOver(button2, window))
-            {
+            else if (isMouseOver(schedulingButton, window))
                 state = programState::Scheduling;
-            }
-        }
-        if (isButtonPressed(Mouse::Button::Left))
-        {
-            if (isMouseOver(button3, window))
-            {
+            else if (isMouseOver(partsButton, window))
                 state = programState::Parts;
-            }
-        }
-        if (isButtonPressed(Mouse::Button::Left))
-        {
-            if (isMouseOver(button4, window))
-            {
+            else if (isMouseOver(aiButton, window))
+                state = programState::AI_Assistant;
+            else if (isMouseOver(settingsButton, window))
                 state = programState::Settings;
-            }
-        }
-        if (isButtonPressed(Mouse::Button::Left))
-        {
-            if (isMouseOver(button5, window))
-            {
+            else if (isMouseOver(exitButton, window))
                 window.close();
-            }
+            else if (isMouseOver(inventoryBack, window))
+                state = programState::MainMenu;
+            else if (isMouseOver(schedulingBack, window))
+                state = programState::MainMenu;
+            else if (isMouseOver(partsBack, window))
+                state = programState::MainMenu;
+            else if (isMouseOver(settingsBack,window))
+                state = programState::MainMenu;
         }
+
+        window.clear();
 
         switch (state)
         {
         case programState::MainMenu:
             mainMenuBackgroundSprite.setScale({3.0f,3.0f});
             window.draw(mainMenuBackgroundSprite);
-            window.draw(button1);
-            window.draw(button1Text);
-            window.draw(button2);
-            window.draw(button2Text);
-            window.draw(button3);
-            window.draw(button3Text);
-            window.draw(button4);
-            window.draw(button4Text);
-            window.draw(button5);
-            window.draw(button5Text);
+            window.draw(inventoryButton);
+            window.draw(inventoryButtonText);
+            window.draw(schedulingButton);
+            window.draw(schedulingButtonText);
+            window.draw(partsButton);
+            window.draw(partsButtonText);
+            window.draw(aiButton);
+            window.draw(aiButtonText);
+            window.draw(settingsButton);
+            window.draw(settingsButtonText);
+            window.draw(exitButton);
+            window.draw(exitButtonText);
+            break;
+        case programState::Inventory:
+            window.draw(inventorybackgroundSprite);
+            window.draw(inventoryBack);
+            window.draw(inventoryBackText);
+            break;
+        case programState::Scheduling:
+            window.draw(schedulingbackgroundSprite);
+            window.draw(schedulingBack);
+            window.draw(schedulingBackText);
+            break;
+        case programState::Parts:
+            window.draw(partsbackgroundSprite);
+            window.draw(partsBack);
+            window.draw(partsBackText);
+            break;
+        case programState::AI_Assistant:
+            window.draw(aibackgroundSprite);
+            window.draw(aiBack);
+            window.draw(aiBackText);
             break;
         case programState::Settings:
             window.draw(settingsbackgroundSprite);
-                break;
-        case programState::Scheduling:
-            window.draw(schedulingbackgroundSprite);
-                break;
-        case programState::Inventory:
-            //draw inventory stuff here
-                break;
-        case programState::Parts:
-            //draw parts stuff here
-                break;
+            window.draw(settingsBack);
+            window.draw(settingsBackText);
+            break;
         }
-
         window.display();
     }
 }
