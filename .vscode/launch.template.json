@@ -1,5 +1,4 @@
 {
-  // Template launch configuration. Copy to `.vscode/launch.json` and fill in your values.
   "version": "0.2.0",
   "configurations": [
     {
