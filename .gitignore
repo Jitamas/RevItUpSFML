@@ -1,6 +1,37 @@
-build
-out
+# Build artifacts
+/cmake-build-debug/
+/build/
+/out/
+
+# CMake files
+CMakeCache.txt
+CMakeFiles/
+compile_commands.json
+
+# Binaries
+/bin/
+*.exe
+*.dll
+*.lib
+*.obj
+*.pdb
+
+# IDE files
+.idea/
+.vscode/launch.json
+.vs/
+
+# Editor/temp
 .cache
-.idea
-.vs
-.vscode
+*.log
+*.tmp
+*.swp
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env
+
+# vcpkg
+vcpkg_installed/
+
