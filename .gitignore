@@ -35,3 +35,14 @@ Thumbs.db
 # vcpkg
 vcpkg_installed/
 
+# Configuration files with API keys
+config.txt
+.env
+
+# API keys (just in case)
+*api_key*
+*secret*
+
+# macOS
+.DS_Store
+

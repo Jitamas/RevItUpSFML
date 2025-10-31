@@ -1,0 +1,8 @@
+# Configuration file for RevItUpSFML
+# Copy this file to config.txt and fill in your API credentials
+
+# Google Search API Configuration
+# Get your API key from: https://console.cloud.google.com/
+# Get your CX from: https://cse.google.com/
+GOOGLE_API_KEY=your_api_key_here
+GOOGLE_CX=your_search_engine_id_here

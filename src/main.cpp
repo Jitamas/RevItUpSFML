@@ -10,6 +10,8 @@
 #include <SFML/Audio.hpp>
 #include <optional>
 #include <filesystem>
+#include <regex>
+#include <algorithm>
 // HTTP + JSON for search
 #include <curl/curl.h>
 #include <nlohmann/json.hpp>
@@ -43,7 +45,7 @@ public:
 // Assets (textures + font) are loaded at runtime inside main() so failures can be
 // handled gracefully instead of throwing during static initialization.
 // Load font from project assets folder
-Font font(std::filesystem::path("assets/AppleGaramond.ttf"));
+Font font(std::filesystem::path("../assets/AppleGaramond.ttf"));
 
 using json = nlohmann::json;
 
@@ -51,10 +53,99 @@ struct SearchResult {
     std::string title;
     std::string link;
     std::string snippet;
+    std::string price;  // New field for price information
 };
 
 // Last search error text (used for UI feedback)
 static std::string lastSearchError;
+
+// Function to extract price from text
+std::string extractPrice(const std::string& text) {
+    std::regex price_patterns[] = {
+        std::regex(R"(\$\s*[\d,]+\.?\d*)"),           // $ 123.45 or $1,234
+        std::regex(R"(USD\s*[\d,]+\.?\d*)"),          // USD 123.45
+        std::regex(R"([\d,]+\.?\d*\s*USD)"),          // 123.45 USD
+        std::regex(R"(Price:\s*\$?[\d,]+\.?\d*)"),    // Price: $123.45
+        std::regex(R"(Cost:\s*\$?[\d,]+\.?\d*)"),     // Cost: $123.45
+        std::regex(R"(\$[\d,]+\.?\d*\s*each)"),       // $123.45 each
+        std::regex(R"(\$[\d,]+\.?\d*\s*ea)"),         // $123.45 ea
+        std::regex(R"([\d,]+\.?\d*\s*dollars?)"),     // 123.45 dollars
+        std::regex(R"(\b[\d,]+\.?\d*\$)"),            // 123.45$
+        std::regex(R"(\$[\d,]+)"),                    // $123 (no cents)
+    };
+    
+    std::smatch match;
+    for (const auto& pattern : price_patterns) {
+        if (std::regex_search(text, match, pattern)) {
+            std::string price_str = match.str();
+            // Clean up the price string
+            if (price_str.find("$") == std::string::npos && price_str.find("USD") == std::string::npos) {
+                price_str = "$" + price_str;
+            }
+            return price_str;
+        }
+    }
+    return "";
+}
+
+// Function to check if text is related to car parts
+bool isCarPartsRelated(const std::string& text) {
+    std::vector<std::string> car_keywords = {
+        "automotive", "auto", "car", "vehicle", "engine", "brake", "tire", "wheel",
+        "transmission", "battery", "oil", "filter", "spark plug", "alternator",
+        "radiator", "suspension", "exhaust", "clutch", "belt", "hose", "gasket",
+        "headlight", "taillight", "bumper", "fender", "mirror", "windshield",
+        "parts", "replacement", "oem", "aftermarket"
+    };
+    
+    std::string lower_text = text;
+    std::transform(lower_text.begin(), lower_text.end(), lower_text.begin(), ::tolower);
+    
+    for (const auto& keyword : car_keywords) {
+        if (lower_text.find(keyword) != std::string::npos) {
+            return true;
+        }
+    }
+    return false;
+}
+
+// Function to check if this looks like a product listing rather than a general website
+bool isProductListing(const std::string& title, const std::string& snippet) {
+    std::string combined = title + " " + snippet;
+    std::transform(combined.begin(), combined.end(), combined.begin(), ::tolower);
+    
+    // Look for product indicators
+    std::vector<std::string> product_indicators = {
+        "part number", "part #", "sku", "model", "brand", "oem", "aftermarket",
+        "fits", "compatible", "replacement", "genuine", "premium", "quality",
+        "warranty", "manufactured", "specification", "dimensions"
+    };
+    
+    // Look for store/retail indicators
+    std::vector<std::string> store_indicators = {
+        "autozone", "advance auto", "o'reilly", "rockauto", "partsgeek",
+        "buy", "shop", "store", "retailer", "dealer"
+    };
+    
+    bool has_product_indicator = false;
+    bool has_store_indicator = false;
+    
+    for (const auto& indicator : product_indicators) {
+        if (combined.find(indicator) != std::string::npos) {
+            has_product_indicator = true;
+            break;
+        }
+    }
+    
+    for (const auto& indicator : store_indicators) {
+        if (combined.find(indicator) != std::string::npos) {
+            has_store_indicator = true;
+            break;
+        }
+    }
+    
+    return has_product_indicator || has_store_indicator;
+}
 
 static size_t WriteCallbackMain(void* contents, size_t size, size_t nmemb, void* userp)
 {
@@ -70,7 +161,7 @@ std::vector<SearchResult> perform_search(const std::string& query)
     const char* api_key = std::getenv("GOOGLE_API_KEY");
     const char* cx = std::getenv("GOOGLE_CX");
     if (!api_key || !cx) {
-        lastSearchError = "Missing GOOGLE_API_KEY or GOOGLE_CX environment variables.";
+        lastSearchError = "Missing GOOGLE_API_KEY or GOOGLE_CX environment variables. Please set them up first.";
         return results;
     }
 
@@ -78,7 +169,11 @@ std::vector<SearchResult> perform_search(const std::string& query)
     if (!curl) return results;
 
     std::string response;
-    char* esc = curl_easy_escape(curl, query.c_str(), static_cast<int>(query.size()));
+    
+    // Enhanced search query targeting product listings from major retailers
+    std::string enhanced_query = query + " site:autozone.com OR site:rockauto.com OR site:advanceautoparts.com OR site:oreillyauto.com OR site:partsgeek.com price";
+    
+    char* esc = curl_easy_escape(curl, enhanced_query.c_str(), static_cast<int>(enhanced_query.size()));
     std::string url = "https://www.googleapis.com/customsearch/v1?key=" + std::string(api_key) + "&cx=" + std::string(cx) + "&q=" + (esc ? esc : "");
     if (esc) curl_free(esc);
 
@@ -99,14 +194,32 @@ std::vector<SearchResult> perform_search(const std::string& query)
         auto j = json::parse(response);
         if (j.contains("items") && j["items"].is_array()) {
             for (const auto& item : j["items"]) {
-                SearchResult r;
-                r.title = item.value("title", "(no title)");
-                r.link = item.value("link", "");
-                r.snippet = item.value("snippet", "");
-                results.push_back(r);
+                std::string title = item.value("title", "(no title)");
+                std::string snippet = item.value("snippet", "");
+                std::string link = item.value("link", "");
+                
+                // Filter: only include results that are car parts related AND look like product listings
+                if (isCarPartsRelated(title + " " + snippet) && isProductListing(title, snippet)) {
+                    SearchResult r;
+                    r.title = title;
+                    r.link = link;
+                    r.snippet = snippet;
+                    
+                    // Extract price information from title and snippet
+                    std::string price = extractPrice(title + " " + snippet);
+                    if (price.empty()) {
+                        // Try to extract from meta description or other fields if available
+                        if (item.contains("htmlSnippet")) {
+                            price = extractPrice(item["htmlSnippet"].get<std::string>());
+                        }
+                    }
+                    r.price = price.empty() ? "Contact for price" : price;
+                    
+                    results.push_back(r);
+                }
             }
             if (results.empty())
-                lastSearchError = "No results found.";
+                lastSearchError = "No product listings found. Try searching for specific part numbers or brands.";
             else
                 lastSearchError.clear();
         }
@@ -114,7 +227,7 @@ std::vector<SearchResult> perform_search(const std::string& query)
             lastSearchError = j["error"].value("message", "Search API error");
         }
         else {
-            lastSearchError = "No results found.";
+            lastSearchError = "No product listings found.";
         }
     } catch (const std::exception& ex) {
         lastSearchError = std::string("Failed to parse search response: ") + ex.what();
@@ -168,27 +281,27 @@ int main()
     Sprite schedulingbackgroundSprite(schedulingbackground);
     Font font;
     bool assetsOk = true;
-    if (!mainMenuBackground.loadFromFile("assets/RIUtestpic1.jpg")) {
-        std::cerr << "Failed to load assets/RIUtestpic1.jpg\n";
+    if (!mainMenuBackground.loadFromFile("../assets/RIUtestpic1.jpg")) {
+        std::cerr << "Failed to load ../assets/RIUtestpic1.jpg\n";
         assetsOk = false;
     } else {
         mainMenuBackground.setSmooth(true);
         mainMenuBackgroundSprite.setTexture(mainMenuBackground);
     }
-    if (!settingsbackground.loadFromFile("assets/settingsbackground.jpg")) {
-        std::cerr << "Failed to load assets/settingsbackground.jpg\n";
+    if (!settingsbackground.loadFromFile("../assets/settingsbackground.jpg")) {
+        std::cerr << "Failed to load ../assets/settingsbackground.jpg\n";
         assetsOk = false;
     } else {
         settingsbackgroundSprite.setTexture(settingsbackground);
     }
-    if (!schedulingbackground.loadFromFile("assets/schedulingbackground.jpg")) {
-        std::cerr << "Failed to load assets/schedulingbackground.jpg\n";
+    if (!schedulingbackground.loadFromFile("../assets/schedulingbackground.jpg")) {
+        std::cerr << "Failed to load ../assets/schedulingbackground.jpg\n";
         assetsOk = false;
     } else {
         schedulingbackgroundSprite.setTexture(schedulingbackground);
     }
-    if (!font.openFromFile("assets/AppleGaramond.ttf")) {
-        std::cerr << "Failed to load assets/AppleGaramond.ttf\n";
+    if (!font.openFromFile("../assets/AppleGaramond.ttf")) {
+        std::cerr << "Failed to load ../assets/AppleGaramond.ttf\n";
         assetsOk = false;
     }
 
@@ -460,7 +573,7 @@ int main()
                 searchBox.setOutlineThickness(partsSearchFocused ? 3.f : 2.f);
                 window.draw(searchBox);
 
-                Text searchText(font, partsSearchQuery.empty() ? "Search parts..." : partsSearchQuery, 20);
+                Text searchText(font, partsSearchQuery.empty() ? "Search: brake pads, oil filter, AC Delco..." : partsSearchQuery, 20);
                 searchText.setFillColor(partsSearchQuery.empty() ? Color(128,128,128) : Color::Black);
                 searchText.setPosition(Vector2f{250.f, 125.f});
                 window.draw(searchText);
@@ -491,7 +604,13 @@ int main()
                         link.setPosition(Vector2f{250.f, ry + 22.f});
                         window.draw(link);
 
-                        ry += 60.f;
+                        // Display price information
+                        Text price(font, "Price: " + r.price, 16);
+                        price.setFillColor(Color(0,128,0)); // Green color for price
+                        price.setPosition(Vector2f{250.f, ry + 40.f});
+                        window.draw(price);
+
+                        ry += 80.f; // Increased spacing to accommodate price
                         if (ry > 900.f) break;
                     }
                 }
