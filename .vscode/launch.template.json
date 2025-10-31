@@ -1,0 +1,18 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run main (Debug)",
+      "type": "cppvsdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/cmake-build-debug/bin/main.exe",
+      "args": [],
+      "cwd": "${workspaceFolder}",
+      "environment": [
+        { "name": "GOOGLE_API_KEY", "value": "<YOUR_GOOGLE_API_KEY>" },
+        { "name": "GOOGLE_CX", "value": "<YOUR_GOOGLE_CX>" }
+      ],
+      "console": "integratedTerminal"
+    }
+  ]
+}
