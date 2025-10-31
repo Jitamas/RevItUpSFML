@@ -46,3 +46,5 @@ config.txt
 # macOS
 .DS_Store
 
+src/main
+src/main.dSYM/
